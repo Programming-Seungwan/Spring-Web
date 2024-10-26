@@ -26,4 +26,10 @@ public class SayHelloController {
         sb.append("</html>");
         return sb.toString();
     }
+
+    @RequestMapping("/say-hello-jsp")
+    @ResponseBody
+    public String sayHelloJSP() {
+        return "say Hello"; // 그냥 문자열을 반환하면 문자열을 이름으로하는 view를 반환한다.
+    }
 }

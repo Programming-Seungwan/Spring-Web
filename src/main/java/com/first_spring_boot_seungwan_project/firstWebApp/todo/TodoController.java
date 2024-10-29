@@ -1,5 +1,6 @@
 package com.first_spring_boot_seungwan_project.firstWebApp.todo;
 
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,13 +31,16 @@ public class TodoController {
     }
 
     @RequestMapping(value = "add-todo", method = RequestMethod.GET)
-    public String showNewTodoPage() {
+    public String showNewTodoPage(ModelMap model) {
+        String username = (String) model.get("name");
+        Todo todo = new Todo(0, username, "", LocalDate.now().plusYears(1),false);
+        model.put("todo", todo);
         return "todo";
     }
 
     @RequestMapping(value = "add-todo", method = RequestMethod.POST)
-    public String addNewTodoPage(@RequestParam String description, ModelMap model) {
-        todoService.addTodo((String) model.get("name"), description, LocalDate.now().plusYears(1), false);
+    public String addNewTodoPage(ModelMap model, Todo todo) {
+        todoService.addTodo((String) model.get("name"), todo.getDescription(), LocalDate.now().plusYears(1), false);
         return "redirect:/list-todos"; // 해당 페이지 URL로 리다이렉트 시켜줌
     }
 }

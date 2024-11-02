@@ -1,5 +1,7 @@
 package com.first_spring_boot_seungwan_project.firstWebApp.todo;
 
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 // 해당 정보들은 데이터베이스에 저장된다
@@ -7,6 +9,8 @@ import java.time.LocalDate;
 public class Todo {
     private int id;
     private String username;
+
+    @Size(min = 10, message="Enter at least 10 characters")
     private String description;
     private LocalDate targetDate;
     private boolean done;
